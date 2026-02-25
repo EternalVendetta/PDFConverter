@@ -8,9 +8,11 @@ import java.io.File;
 public class AppGui extends JFrame {
 
     private JLabel fileNameLabel;
+    private JLabel fileSizeLabel;
+
     private JButton importButton;
     private JButton convertButton;
-    private JLabel fileSizeLabel;
+    private  JButton deleteButton;
 
     // Store the File Imported state
     private File selectedFile;
@@ -66,14 +68,19 @@ public class AppGui extends JFrame {
 
         importButton = new JButton("Import");
         convertButton = new JButton("Convert");
+        deleteButton = new JButton("X");
 
         convertButton.setEnabled(false);
 
+        // Add the style
         stylePrimaryButton(importButton);
         styleSecondaryButton(convertButton);
+        styleDeleteButton(deleteButton);
 
+        // Add to the Panel
         buttonPanel.add(importButton);
         buttonPanel.add(convertButton);
+        buttonPanel.add(deleteButton);
 
         // === ASSEMBLY ===
         cardPanel.add(filePanel);
@@ -85,6 +92,7 @@ public class AppGui extends JFrame {
         add(cardPanel);
     }
 
+    // Button Design
     private void stylePrimaryButton(JButton button) {
         button.setFocusPainted(false);
         button.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -101,6 +109,14 @@ public class AppGui extends JFrame {
         button.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
     }
 
+    private void styleDeleteButton(JButton button) {
+        button.setFocusPainted(false);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setBackground(new Color(231, 20, 186));
+        button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
+    }
+
     // GETTER
     public JButton getImportButton() {
         return importButton;
@@ -110,6 +126,9 @@ public class AppGui extends JFrame {
     }
     public File getSelectedFile() {
         return this.selectedFile;
+    }
+    public JButton getDeleteButton() {
+        return this.deleteButton;
     }
 
     // SETTER

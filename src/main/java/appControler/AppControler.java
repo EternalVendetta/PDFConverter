@@ -50,7 +50,7 @@ public class AppControler {
                     gui.getConvertButton().setEnabled(true);
 
                 } else {
-                    // Make a Pop up Error
+                    // IF NOT A .Txt File
                     JOptionPane.showMessageDialog(
                             gui,
                             "Only .txt files are allowed",
@@ -85,6 +85,17 @@ public class AppControler {
                 JOptionPane.showMessageDialog(gui, "Error:" + " " + ex.getMessage());
             }
 
+        });
+
+        gui.getDeleteButton().addActionListener(e -> {
+            // Set the default
+            gui.setFileName("Please select a .txt file");
+            // Set the Size to 0
+            gui.setFileSizeLabel("0");
+            // Clear the File selected
+            gui.setSelectedFile(null);
+            // Shaded the import button
+            gui.getConvertButton().setEnabled(false);
         });
     }
 }
