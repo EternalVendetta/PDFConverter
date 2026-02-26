@@ -20,6 +20,12 @@ public class AppControler {
         initController();
     }
 
+    // !!! DO NOT REPEEAT YOURSELF ON selectedFile variable
+
+    private void updateConvertButtonState() {
+        gui.getConvertButton().setEnabled(gui.getSelectedFile() != null);
+    }
+
     private void initController() {
         // IMPORT .Txt FILE
         gui.getImportButton().addActionListener(e -> {
@@ -39,15 +45,18 @@ public class AppControler {
                 if (service.isText(fileName)) {
                     // Print the name to the View
                     gui.setSelectedFile(selectedFile);
-                    // Change the name of the state
                     gui.setFileName("File:" + " " + fileName);
 
                     // Print the File Size to the View
                     long fileSize = selectedFile.length();
                     gui.setFileSizeLabel(service.toKiloBytes(fileSize));
 
-                    // Show the Convert button here
-                    gui.getConvertButton().setEnabled(true);
+                    // Show the Convert button  & Delete only after import File
+                    gui.getConvertButton().setVisible(true);
+                    gui.getDeleteButton().setVisible(true);
+
+                   // Change the Convert Btn View
+                    updateConvertButtonState();
 
                 } else {
                     // IF NOT A .Txt File
@@ -64,7 +73,7 @@ public class AppControler {
         // CONVERT TO PDF
         gui.getConvertButton().addActionListener(e -> {
 
-            // If you try to convert Nothing
+            // If there is no FIle to convert -> Size = 0 KB
             if (gui.getSelectedFile() == null) {
                 JOptionPane.showMessageDialog(gui, "Import a .Txt file first.");
                 return;
@@ -94,8 +103,10 @@ public class AppControler {
             gui.setFileSizeLabel("0");
             // Clear the File selected
             gui.setSelectedFile(null);
-            // Shaded the import button
-            gui.getConvertButton().setEnabled(false);
+
+            // Change the Convert Btn view
+            updateConvertButtonState();
+
         });
     }
 }

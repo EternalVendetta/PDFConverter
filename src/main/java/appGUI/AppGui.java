@@ -70,7 +70,9 @@ public class AppGui extends JFrame {
         convertButton = new JButton("Convert");
         deleteButton = new JButton("X");
 
-        convertButton.setEnabled(false);
+        convertButton.setVisible(false);
+        deleteButton.setVisible(false);
+
 
         // Add the style
         stylePrimaryButton(importButton);
@@ -129,6 +131,9 @@ public class AppGui extends JFrame {
     }
     public JButton getDeleteButton() {
         return this.deleteButton;
+    }
+    public JLabel getFileSizeLabel() {
+        return this.fileSizeLabel;
     }
 
     // SETTER
