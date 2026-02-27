@@ -19,40 +19,40 @@ import appGUI.AppGui;
 import appService.AppService;
 
 // Import the Tool to Test
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppServiceTest {
-    AppService service = new AppService();
+class AppServiceTest {
 
-    @Test
-    void shouldReturnTrueIfText() {
-        // Arange
-        String fileName = "document.txt";
-        // Act
-        boolean result = service.isText(fileName);
-        // Assert
-        assertTrue(result);
+    private AppService service;
+
+    @BeforeEach
+    void setUp() {
+        service = new AppService();
     }
 
     @Test
-    void shouldReturnFalseIfNotText() {
-        // Arange
-        String filename = "document.png";
-        // Act
-        boolean result = service.isText(filename);
-        // Assert
-        assertFalse(result);
-
+    void shouldReturnTrueWhenFileHasTxtExtension() {
+        assertTrue(service.isText("document.txt"));
     }
 
     @Test
-    void shouldReturnFalseIfNull() {
-        // Arrange
-        String filename = null;
-        // Act
-        boolean result = service.isText(filename);
-        // Asset
-        assertFalse(result);
+    void shouldReturnTrueWhenExtensionIsUppercase() {
+        assertTrue(service.isText("DOCUMENT.TXT"));
+    }
+
+    @Test
+    void shouldReturnFalseWhenExtensionIsNotTxt() {
+        assertFalse(service.isText("image.png"));
+    }
+
+    @Test
+    void shouldReturnFalseWhenFilenameIsNull() {
+        assertFalse(service.isText(null));
+    }
+
+    @Test
+    void shouldReturnFalseWhenFilenameIsEmpty() {
+        assertFalse(service.isText(""));
     }
 }
